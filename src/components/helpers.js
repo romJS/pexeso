@@ -1,5 +1,8 @@
 export const NUMBER_OF_CARDS = 16;
-/// creates an array of cards with unique ID
+/**
+ * creates an array of cards with unique ID
+ * @returns {array}
+ */
 export const createCards = () => {
   const cards = [];
   for (let i = 1; i <= NUMBER_OF_CARDS; i++) {
