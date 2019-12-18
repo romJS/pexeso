@@ -41,11 +41,7 @@ class Game extends React.Component {
     };
   }
 
-  handleClick = (id, cardname) => {
-    console.log({
-      cardId: id,
-      cardName: cardname
-    });
+  handleClick = id => {
     if (this.state.loading) return;
     if (this.state.card1 === undefined) {
       this.setState({ card1: id });
@@ -72,9 +68,8 @@ class Game extends React.Component {
 
     /// Matching cards
     if (card1.cardName === card2.cardName) {
-      const discardedCards = [...this.state.discardedCards, card1.id, card2.id];
       this.setState(state => ({
-        discardedCards: discardedCards,
+        discardedCards: [...state.discardedCards, card1.id, card2.id],
         score: state.score + 10
       }));
     }

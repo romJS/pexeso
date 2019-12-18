@@ -18,34 +18,26 @@ export const BoardContext = React.createContext({
 });
 
 const Board = () => {
-  const renderBoard = (...args) => {
-    const [cards, card1, card2, handleClick, discardedCards] = args;
-    return cards.map(image => {
-      // return card´s id for discard
-      let discardedId = discardedCards.find(card => card === image.id);
-      // ensures that only two cards are rotated
-      const open = card1 === image.id || card2 === image.id;
-      // matched cards become hidden
-      const isDiscard = discardedId === image.id;
-      return (
-        <BoardContext.Provider
-          key={image.id}
-          value={{ image, open, isDiscard }}
-        >
-          <Card
-            key={image.id}
-            onClick={() => handleClick(image.id, image.cardName)}
-          />
-        </BoardContext.Provider>
-      );
-    });
-  };
-
   return (
     <GameContext.Consumer>
       {({ cards, card1, card2, handleClick, discardedCards }) => (
         <StyledBoard className="board">
-          {renderBoard(cards, card1, card2, handleClick, discardedCards)}
+          {cards.map(image => {
+            // return card´s id for discard
+            let discardedId = discardedCards.find(card => card === image.id);
+            // ensures that only two cards are rotated
+            const open = card1 === image.id || card2 === image.id;
+            // matched cards become hidden
+            const isDiscard = discardedId === image.id;
+            return (
+              <BoardContext.Provider
+                key={image.id}
+                value={{ image, open, isDiscard }}
+              >
+                <Card open={open} onClick={() => handleClick(image.id)} />
+              </BoardContext.Provider>
+            );
+          })}
         </StyledBoard>
       )}
     </GameContext.Consumer>
