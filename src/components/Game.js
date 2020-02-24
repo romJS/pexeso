@@ -42,7 +42,7 @@ class Game extends React.Component {
   }
 
   handleClick = id => {
-    if (this.state.loading) return;
+    if (this.state.loading || this.discardedCardsClick(id) === id) return;
     if (this.state.card1 === undefined) {
       this.setState({ card1: id });
     } else {
@@ -53,6 +53,9 @@ class Game extends React.Component {
     }
     if (this.state.card1 !== undefined) return this.evaluate();
   };
+
+  discardedCardsClick = id =>
+    this.state.discardedCards.find(card => card === id);
 
   evaluate() {
     setTimeout(() => {
@@ -91,6 +94,7 @@ class Game extends React.Component {
   };
 
   render() {
+    console.log(this.state.discardedCards);
     const popUp = this.state.gameOver ? (
       <PopUpWindow
         moves={this.state.moves}
